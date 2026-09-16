@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Приложение семейного бюджета: доходы, расходы и список покупок.">
+    <title>Приложение — Семейный бюджет</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- Общая шапка сайта: переход на лендинг и обратно в приложение -->
+    <header class="site-bar">
+        <a class="site-logo" href="index.html">Семейный бюджет</a>
+        <nav class="site-links" aria-label="Главное меню">
+            <a href="index.html">Главная</a>
+            <a href="app.html" class="is-current">Приложение</a>
+        </nav>
+    </header>
+
+<div class="app">
+
+    <!-- ============================================================
+         ШАПКА
+         ============================================================ -->
+
+    <header class="header">
+
+        <div class="header-label">
+            Финансовое планирование
+        </div>
+
+        <h1>
+            Семейный бюджет
+        </h1>
+
+        <p class="subtitle">
+            Добавляйте доходы и расходы семьи, контролируйте остаток,
+            планируйте накопления и ведите семейный список покупок.
+        </p>
+
+    </header>
+
+
+    <!-- ============================================================
+         ВКЛАДКИ
+         Переключают разделы «Бюджет» и «Список покупок».
+         Активная вкладка отмечается классом active.
+         ============================================================ -->
+
+    <nav class="tabs" aria-label="Разделы сайта">
+
+        <button
+            type="button"
+            class="tab-button active"
+            data-tab="budget"
+            id="budgetTabButton"
+        >
+            Бюджет
+        </button>
+
+        <button
+            type="button"
+            class="tab-button"
+            data-tab="shopping"
+            id="shoppingTabButton"
+        >
+            Список покупок
+        </button>
+
+    </nav>
+
+
+    <!-- ============================================================
+         ВКЛАДКА «БЮДЖЕТ»
+         Здесь остаются все существующие блоки калькулятора.
+         ============================================================ -->
+
+    <div
+        class="tab-panel active"
+        id="budgetTab"
+        data-tab-panel="budget"
+    >
+
+
+    <!-- ============================================================
+         ОСНОВНЫЕ ПОКАЗАТЕЛИ
+         ============================================================ -->
+
+    <section class="summary-grid">
+
+        <div class="summary-card income">
+            <div class="label">
+                Общий доход
+            </div>
+
+            <div class="value" id="totalIncome">
+                0 ₽
+            </div>
+
+            <span class="small-note">
+                Все поступления семьи
+            </span>
+        </div>
+
+
+        <div class="summary-card expense">
+
+            <div class="label">
+                Общие расходы
+            </div>
+
+            <div class="value" id="totalExpense">
+                0 ₽
+            </div>
+
+            <span class="small-note">
+                Все текущие расходы
+            </span>
+
+        </div>
+
+
+        <div class="summary-card balance">
+
+            <div class="label">
+                Остаток
+            </div>
+
+            <div class="value" id="balance">
+                0 ₽
+            </div>
+
+            <span class="small-note">
+                Доходы минус расходы
+            </span>
+
+        </div>
+
+
+        <div class="summary-card saving">
+
+            <div class="label">
+                Можно отложить
+            </div>
+
+            <div class="value" id="savingPercent">
+                0%
+            </div>
+
+            <span class="small-note">
+                Доля свободных средств
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         ОСНОВНАЯ ЧАСТЬ
+         ============================================================ -->
+
+    <main class="main-grid">
+
+        <!-- ЛЕВАЯ КОЛОНКА -->
+        <section class="card">
+
+            <h2 class="section-title">
+                Доходы и расходы
+            </h2>
+
+            <p class="section-description">
+                Добавьте каждое поступление или расход.
+                Итоговые показатели обновятся автоматически.
+            </p>
+
+
+            <!-- Форма -->
+
+            <form id="transactionForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <label>
+                            Тип операции
+                        </label>
+
+                        <div class="type-switch">
+
+                            <button
+                                type="button"
+                                id="incomeButton"
+                                class="type-button active-income"
+                            >
+                                + Доход
+                            </button>
+
+                            <button
+                                type="button"
+                                id="expenseButton"
+                                class="type-button"
+                            >
+                                − Расход
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="transactionName">
+                            Название
+                        </label>
+
+                        <input
+                            type="text"
+                            id="transactionName"
+                            placeholder="Например: Зарплата"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="transactionAmount">
+                            Сумма, ₽
+                        </label>
+
+                        <input
+                            type="number"
+                            id="transactionAmount"
+                            placeholder="50000"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="transactionCategory">
+                            Категория
+                        </label>
+
+                        <select id="transactionCategory">
+
+                            <!-- Категории будут изменяться
+                                 автоматически в JavaScript -->
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="transactionDate">
+                            Дата
+                        </label>
+
+                        <input
+                            type="date"
+                            id="transactionDate"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                        >
+                            Добавить в бюджет
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- Список операций -->
+
+            <div class="transactions-header">
+
+                <h3>
+                    История операций
+                </h3>
+
+                <button
+                    class="clear-button"
+                    id="clearAllButton"
+                    type="button"
+                >
+                    Очистить всё
+                </button>
+
+            </div>
+
+
+            <div
+                class="transaction-list"
+                id="transactionList"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- ========================================================
+             ПРАВАЯ КОЛОНКА
+             ======================================================== -->
+
+        <aside class="side-column">
+
+
+            <!-- ФИНАНСОВАЯ ЦЕЛЬ -->
+
+            <section class="card">
+
+                <h2 class="section-title">
+                    Финансовая цель
+                </h2>
+
+                <p class="section-description">
+                    Рассчитайте, сколько нужно откладывать каждый месяц.
+                </p>
+
+                <div class="goal-form">
+
+                    <div class="form-group">
+
+                        <label for="goalAmount">
+                            Необходимая сумма, ₽
+                        </label>
+
+                        <input
+                            type="number"
+                            id="goalAmount"
+                            placeholder="300000"
+                            min="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="goalMonths">
+                            За сколько месяцев
+                        </label>
+
+                        <input
+                            type="number"
+                            id="goalMonths"
+                            placeholder="12"
+                            min="1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="goal-result">
+
+                    <div class="goal-result-title">
+                        Нужно откладывать ежемесячно
+                    </div>
+
+                    <div
+                        class="goal-result-value"
+                        id="monthlyGoal"
+                    >
+                        0 ₽
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- СТРУКТУРА РАСХОДОВ -->
+
+            <section class="card">
+
+                <h2 class="section-title">
+                    Структура расходов
+                </h2>
+
+                <p class="section-description">
+                    Основные категории расходов семьи.
+                </p>
+
+                <div id="categoryProgress">
+                </div>
+
+            </section>
+
+
+            <!-- ФИНАНСОВОЕ СОСТОЯНИЕ -->
+
+            <section class="card">
+
+                <h2 class="section-title">
+                    Оценка бюджета
+                </h2>
+
+                <p class="section-description">
+                    Простая автоматическая оценка финансового баланса.
+                </p>
+
+                <div
+                    id="budgetStatus"
+                    class="status-box"
+                >
+                    <strong>
+                        Добавьте данные
+                    </strong>
+
+                    Укажите доходы и расходы,
+                    чтобы получить оценку бюджета.
+                </div>
+
+            </section>
+
+        </aside>
+
+    </main>
+
+    </div>
+    <!-- Конец вкладки «Бюджет» -->
+
+
+    <!-- ============================================================
+         ВКЛАДКА «СПИСОК ПОКУПОК»
+         Отдельный раздел: товары, количество, примерная цена.
+         Данные хранятся в LocalStorage отдельно от бюджета.
+         ============================================================ -->
+
+    <div
+        class="tab-panel"
+        id="shoppingTab"
+        data-tab-panel="shopping"
+    >
+
+        <!-- Краткая сводка по списку -->
+        <section class="shopping-summary">
+
+            <div class="summary-card">
+                <div class="label">
+                    Всего позиций
+                </div>
+                <div class="value" id="shoppingTotalCount">
+                    0
+                </div>
+                <span class="small-note">
+                    Товары в списке
+                </span>
+            </div>
+
+            <div class="summary-card expense">
+                <div class="label">
+                    Осталось купить
+                </div>
+                <div class="value" id="shoppingOpenCount">
+                    0
+                </div>
+                <span class="small-note">
+                    Ещё не отмечены
+                </span>
+            </div>
+
+            <div class="summary-card saving">
+                <div class="label">
+                    Примерная сумма
+                </div>
+                <div class="value" id="shoppingOpenSum">
+                    0 ₽
+                </div>
+                <span class="small-note">
+                    Только неотмеченные товары
+                </span>
+            </div>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2 class="section-title">
+                Список покупок
+            </h2>
+
+            <p class="section-description">
+                Добавьте товары, которые нужно купить.
+                Отметьте купленное галочкой — оно останется в списке,
+                пока вы его не удалите.
+            </p>
+
+
+            <!-- Форма добавления товара -->
+            <form id="shoppingForm">
+
+                <div class="shopping-form-row">
+
+                    <div class="form-group">
+                        <label for="shoppingName">
+                            Название
+                        </label>
+                        <input
+                            type="text"
+                            id="shoppingName"
+                            placeholder="Например: Молоко"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shoppingQty">
+                            Количество
+                        </label>
+                        <input
+                            type="number"
+                            id="shoppingQty"
+                            placeholder="1"
+                            min="1"
+                            step="1"
+                            value="1"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shoppingPrice">
+                            Цена, ₽
+                        </label>
+                        <input
+                            type="number"
+                            id="shoppingPrice"
+                            placeholder="необязательно"
+                            min="0"
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shoppingCategory">
+                            Категория
+                        </label>
+                        <select id="shoppingCategory">
+                            <option value="Продукты">Продукты</option>
+                            <option value="Хозяйство">Хозяйство</option>
+                            <option value="Аптека">Аптека</option>
+                            <option value="Дети">Дети</option>
+                            <option value="Одежда">Одежда</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <button
+                            type="submit"
+                            class="primary-button"
+                        >
+                            Добавить в список
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- Фильтры и действия со списком -->
+            <div class="transactions-header">
+
+                <div class="shopping-filters">
+
+                    <button
+                        type="button"
+                        class="filter-button active"
+                        data-shopping-filter="all"
+                    >
+                        Все
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter-button"
+                        data-shopping-filter="open"
+                    >
+                        Купить
+                    </button>
+
+                    <button
+                        type="button"
+                        class="filter-button"
+                        data-shopping-filter="bought"
+                    >
+                        Куплено
+                    </button>
+
+                </div>
+
+                <div class="header-actions">
+
+                    <button
+                        type="button"
+                        class="clear-button"
+                        id="clearBoughtButton"
+                    >
+                        Убрать купленное
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-button"
+                        id="clearShoppingButton"
+                    >
+                        Очистить список
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Сюда JavaScript выводит позиции списка -->
+            <div
+                class="transaction-list"
+                id="shoppingList"
+            >
+            </div>
+
+        </section>
+
+    </div>
+    <!-- Конец вкладки «Список покупок» -->
+
+
+    <div class="footer-note">
+        Данные сохраняются только в вашем браузере с помощью LocalStorage.
+    </div>
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

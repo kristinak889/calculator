@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Семейный бюджет — простой сайт для учёта доходов, расходов и списка покупок. Данные хранятся только в вашем браузере.">
+    <title>Семейный бюджет — учёт домашнего бюджета</title>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+    <!-- Общая шапка сайта -->
+    <header class="site-bar">
+        <a class="site-logo" href="index.html">Семейный бюджет</a>
+        <nav class="site-links" aria-label="Главное меню">
+            <a href="index.html" class="is-current">Главная</a>
+            <a href="app.html">Приложение</a>
+        </nav>
+    </header>
+
+
+    <div class="landing">
+
+        <!-- Приветственный блок -->
+        <section class="hero">
+
+            <div>
+                <div class="header-label">
+                    Для семьи, без регистрации
+                </div>
+
+                <h1>
+                    Домашний бюджет<br>
+                    и список покупок<br>
+                    в одном месте
+                </h1>
+
+                <p class="subtitle">
+                    Добавляйте доходы и расходы, смотрите остаток, копите на цель
+                    и держите семейный список покупок. Всё работает в браузере:
+                    ничего не отправляется на сервер.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="primary-button" href="app.html">
+                        Открыть приложение
+                    </a>
+                    <a class="ghost-button" href="#how">
+                        Как это работает
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Живая сводка из LocalStorage, если данные уже есть -->
+            <aside class="hero-panel" aria-label="Текущие данные в этом браузере">
+                <div class="header-label">
+                    В этом браузере
+                </div>
+
+                <div class="hero-stat">
+                    <span>Доходы</span>
+                    <strong id="landingIncome">0 ₽</strong>
+                </div>
+
+                <div class="hero-stat">
+                    <span>Расходы</span>
+                    <strong id="landingExpense">0 ₽</strong>
+                </div>
+
+                <div class="hero-stat">
+                    <span>Остаток</span>
+                    <strong id="landingBalance">0 ₽</strong>
+                </div>
+
+                <div class="hero-stat">
+                    <span>Купить ещё</span>
+                    <strong id="landingShopping">0</strong>
+                </div>
+
+                <p class="section-description" id="landingHint" style="margin: 16px 0 0;">
+                    Пока нет сохранённых данных — можно начать с пустого бюджета.
+                </p>
+            </aside>
+
+        </section>
+
+
+        <!-- Возможности -->
+        <section class="features" aria-label="Возможности">
+
+            <article class="card feature-card">
+                <h3>Учёт доходов и расходов</h3>
+                <p>
+                    Категории, даты и история операций.
+                    Итоги пересчитываются сразу после добавления записи.
+                </p>
+            </article>
+
+            <article class="card feature-card">
+                <h3>Список покупок</h3>
+                <p>
+                    Товары, количество и примерная цена.
+                    Отмечайте купленное и смотрите, сколько ещё осталось потратить.
+                </p>
+            </article>
+
+            <article class="card feature-card">
+                <h3>Цель и оценка бюджета</h3>
+                <p>
+                    Посчитайте, сколько откладывать каждый месяц,
+                    и получите простую оценку финансового состояния.
+                </p>
+            </article>
+
+        </section>
+
+
+        <!-- Шаги -->
+        <section id="how">
+            <h2 class="section-title">Как начать</h2>
+            <p class="section-description">
+                Три шага — и бюджет уже перед глазами.
+            </p>
+
+            <div class="steps">
+                <article class="card step-card">
+                    <div class="step-number">1</div>
+                    <h3>Откройте приложение</h3>
+                    <p>
+                        Регистрация не нужна. Страница работает локально
+                        в любом современном браузере.
+                    </p>
+                </article>
+
+                <article class="card step-card">
+                    <div class="step-number">2</div>
+                    <h3>Добавьте операции</h3>
+                    <p>
+                        Укажите зарплату, продукты, жильё и другие траты.
+                        Остаток появится автоматически.
+                    </p>
+                </article>
+
+                <article class="card step-card">
+                    <div class="step-number">3</div>
+                    <h3>Ведите покупки</h3>
+                    <p>
+                        Перейдите на вкладку «Список покупок»
+                        и собирайте продукты перед походом в магазин.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+
+        <section class="card privacy-box">
+            <h2 class="section-title">Приватность</h2>
+            <p class="section-description" style="margin-bottom: 0;">
+                Доходы, расходы и список покупок сохраняются только в LocalStorage
+                вашего браузера. Если очистить данные сайта, записи пропадут.
+                Для учёта на другом устройстве этот сайт не синхронизирует данные.
+            </p>
+        </section>
+
+
+        <div class="footer-note">
+            Учебный проект семейного бюджета. Данные не отправляются на сервер.
+        </div>
+
+    </div>
+
+    <script src="js/landing.js"></script>
+</body>
+</html>
